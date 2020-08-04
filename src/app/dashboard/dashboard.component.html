@@ -1,0 +1,92 @@
+<div class="container">
+    <div class="row register-form">
+        <div class="col col-xl-12 col-lg-12">
+            <div class="card mb-3">
+                <div class="col-12 card-header d-flex">
+                    <div class="col-4">
+                        <span><b>Job List</b></span>
+                    </div>
+                    <div  class="col-4">
+                        <a routerLink="/add-job">
+                            <i class="material-icons">control_point</i> Add Jobs
+                        </a>
+                    </div>
+                    <div class="col-4">
+                        <button mat-button [matMenuTriggerFor]="afterMenu">User</button>
+                        <mat-menu #afterMenu="matMenu" xPosition="after">
+                          <button mat-menu-item [routerLink]="['/profile']">My Profile</button>
+                          <button mat-menu-item (click)="logout()">Logout</button>
+                        </mat-menu>
+                    </div>
+                </div>
+                <div class="mat-elevation-z8 card-body">
+                    <mat-form-field>
+                        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                    </mat-form-field>
+
+                    <table mat-table [dataSource]="dataSource" matSort >
+
+                        <ng-container matColumnDef="position">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="width-250">#</th>
+                            <td mat-cell *matCellDef="let element; let i = index" class="truncateDataHundread"> {{ i + 1}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="jobtitle">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="width-250">Job Title</th>
+                            <td mat-cell *matCellDef="let element" class="truncateDataHundread"
+                                title="{{element.jobtitle}}"> {{element?.jobtitle}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="jobdescription">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="width-250">Job Description</th>
+                            <td mat-cell *matCellDef="let element" class="truncateDataHundread"
+                                title="{{element.jobdescription}}"> {{element?.jobdescription }} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="status">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="width-300">Status</th>
+                            <td mat-cell *matCellDef="let element" [style.background]="element?.status === 'Not Started' ? 'grey' : element?.status === 'Completed' ? 'green' : 'blue' "> 
+                                <span>{{element?.status }}</span>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="jobTypes">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="width-300">Job Types</th>
+                            <td mat-cell *matCellDef="let element"> {{ element?.jobType }} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="StartTime">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="width-300">Start Time</th>
+                            <td mat-cell *matCellDef="let element"> {{ element?.created_at | date:'medium' }} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="EndTime">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="width-300">End Time</th>
+                            <td mat-cell *matCellDef="let element"> {{ element?.updated_at | date:'medium'}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="action">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="width-300">Action</th>
+                            <td mat-cell *matCellDef="let element">
+                                <span class="material-icons" (click)="edit(element._id)">edit</span>
+
+                                <span class="material-icons" (click)="delete(element._id)">delete</span> 
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="noRecord">
+                            <td colspan='8' mat-footer-cell *matFooterCellDef class="text-center">
+                                No records found.
+                            </td>
+                        </ng-container>
+                        <tr [hidden]="dataSource.data.length != 0 && isTableHasData" mat-footer-row
+                            *matFooterRowDef="['noRecord']"></tr>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns; "></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

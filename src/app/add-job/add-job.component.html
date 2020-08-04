@@ -1,0 +1,50 @@
+<div class="container">
+    <div class="row  register-form">
+        <div class="col-12">
+            <div class="col-12 card-header d-flex">
+                <div class="col-4">
+                    <a routerLink="/dashboard">Dashboard</a>
+                </div>
+                <div  class="col-4">
+                    <a routerLink="/add-job">
+                        <i class="material-icons">control_point</i> Add Jobs
+                    </a>
+                </div>
+                <div class="col-4">
+                    <button mat-button [matMenuTriggerFor]="afterMenu">User</button>
+                    <mat-menu #afterMenu="matMenu" xPosition="after">
+                      <button mat-menu-item [routerLink]="['/profile']">My Profile</button>
+                      <button mat-menu-item (click)="logout()">Logout</button>
+                    </mat-menu>
+                </div>
+            </div>
+            <h1 class="text-center font-weight-bold">Add Job</h1>
+            <form class="example-form" [formGroup]="jonDetails">
+
+                <mat-form-field class="full-width col-6">
+                    <input matInput placeholder="Enter Job Title" formControlName="jobtitle" required>
+                    <mat-error *ngIf="fval.jobtitle.errors?.required">
+                        Job Title required</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="full-width col-6">
+                    <input type="text" matInput placeholder="Enter Job Description" formControlName="jobdescription" required>
+                    <mat-error *ngIf="fval.jobdescription.errors?.required">
+                        Job Description is required</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="full-width col-6">
+                    <mat-label>Select Job </mat-label>
+                    <mat-select formControlName="jobType">
+                        <option value="" selected>Please Select Time Schecule</option>
+                        <mat-option *ngFor="let timeschedule of timeSchedule" value="{{timeschedule.id}}">
+                            {{timeschedule.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field><br>
+                
+                <button class="btn btn-primary" (click)="createJob()">create Job</button>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="row text-center register-form">
+        <div class="col-12">
+            <h1 class="text-center font-weight-bold">Login Form</h1>
+            <form class="example-form" [formGroup]="userLogin">
+
+                <mat-form-field class="full-width col-6">
+                    <input type="email"  matInput placeholder="Enter Email Address" formControlName="email" required>
+                    <mat-error *ngIf="fval.email.errors?.required">
+                         Email Address is required</mat-error>
+                </mat-form-field><br>
+
+                <mat-form-field class="full-width col-6">
+                    <input type="password" matInput placeholder="Enter Password" formControlName="password" required>
+                    <mat-error *ngIf="fval.password.errors?.required">
+                        Password is required</mat-error>
+                </mat-form-field><br>
+                <div class="text-center">
+                    <button class="btn btn-primary" (click)="login()">Login</button>
+                </div><br>
+                
+                <p class="text-center">Don’t have an account?<a routerLink="/register">Click here</a> to join our bate users</p>
+              </form>
+        </div>
+    </div>
+</div>

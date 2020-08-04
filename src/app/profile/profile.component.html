@@ -1,0 +1,58 @@
+<div class="container">
+    <div class="row register-form">
+        <div class="col-12">
+            <div class="col-12 card-header d-flex">
+                <div class="col-4">
+                    <a routerLink="/dashboard">Dashboard</a>
+                </div>
+                <div  class="col-4">
+                    <a routerLink="/add-job">
+                        <i class="material-icons">control_point</i> Add Jobs
+                    </a>
+                </div>
+                <div class="col-4">
+                    <button mat-button [matMenuTriggerFor]="afterMenu">User</button>
+                    <mat-menu #afterMenu="matMenu" xPosition="after">
+                      <button mat-menu-item [routerLink]="['/profile']">My Profile</button>
+                      <button mat-menu-item (click)="logout()">Logout</button>
+                    </mat-menu>
+                </div>
+            </div>
+            <h1 class="text-center font-weight-bold">User Profile</h1>
+            <form class="example-form" [formGroup]="userProfile">
+
+                <mat-form-field class="full-width col-6">
+                    <input matInput placeholder="First Name" formControlName="firstName" required>
+                    <mat-error *ngIf="fval.firstName.errors?.required">
+                        First Name is required</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="full-width col-6">
+                    <input type="text" matInput placeholder="Last Name" formControlName="lastName" required>
+                    <mat-error *ngIf="fval.lastName.errors?.required">
+                        Last Name is required</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="full-width col-6">
+                    <input type="text" matInput placeholder="Enter Address" formControlName="address" required>
+                    <mat-error *ngIf="fval.address.errors?.required">
+                        Address is required</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="full-width col-6">
+                    <input type="number" matInput placeholder="Enter Mobile Number" formControlName="mobile" required>
+                    <mat-error *ngIf="fval.mobile.errors?.required">
+                        Mobile Number is required</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="full-width col-6">
+                    <input type="email"  matInput placeholder="Enter Email Address" formControlName="email" required>
+                    <mat-error *ngIf="fval.email.errors?.required">
+                         Email Address is required</mat-error>
+                </mat-form-field><br>
+                
+                <button class="btn btn-primary" (click)="updateProfile()">Update</button>
+              </form>
+        </div>
+    </div>
+</div>
